@@ -1,6 +1,7 @@
 import asyncio
 import websockets
 import time
+import sys
 
 
 def append_to_file(arr):
@@ -19,8 +20,9 @@ async def websocket_handler(websocket, path):
     # await websocket.send("Success")
     # print("Success")
 
+ipv4 = sys.argv[1]
 port = 8800
-start_server = websockets.serve(websocket_handler, "localhost", port)
+start_server = websockets.serve(websocket_handler, ipv4, port)
 print("Socket open on port: " + str(port))
 
 asyncio.get_event_loop().run_until_complete(start_server)

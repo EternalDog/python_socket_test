@@ -2,9 +2,9 @@ import time
 import asyncio
 import websockets
 import psutil
+import sys
 
-
-server_address = "ws://192.168.1.159:8800";
+server_address = "ws://" + sys.argv[1] + ":8800";
 current_processes = []
 
 
