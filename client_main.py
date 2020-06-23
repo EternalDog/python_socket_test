@@ -1,23 +1,21 @@
-import wmi
 import time
-import platform
-
 import asyncio
 import websockets
+import psutil
 
-# Initializing the wmi constructor
-f = wmi.WMI()
 
-server_address = "ws://localhost:8800";
+server_address = "ws://192.168.1.159:8800";
 current_processes = []
 
 
 def gather_process_names():
-
-    if platform.system() == "Windows":
-        for process in f.Win32_Process():
-            # print(process.Name)
-            current_processes.append(process.Name + " \n ")
+    current_processes.clear()
+    for proc in psutil.process_iter():
+        try:
+            # Get process name & pid from process object.
+            current_processes.append(proc.name() + " \n ")
+        except (psutil.NoSuchProcess, psutil.AccessDenied):
+            pass
 
 
 def send_list(out, target):
@@ -34,7 +32,5 @@ def send_list(out, target):
 while True:
     gather_process_names()
     send_list(current_processes, server_address)
-    print('Information sent')
-    del current_processes
+    print('Information sent, waiting 5s')
     time.sleep(5)
-
