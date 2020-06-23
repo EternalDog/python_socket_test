@@ -6,6 +6,6 @@ Server listens on and client posts to port 8800 by default, this is defined by a
 
 Both files accept the IP as Standard Input
 example:
-  py server_main 87.254.4.180
-  py server_client 87.254.4.180
+  - py server_main 87.254.4.180
+  - py server_client 87.254.4.180
   
